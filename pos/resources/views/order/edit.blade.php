@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create Order')
+@section('title', 'Edit Order')
 @section('header')
 <h1>
 	ORDER
@@ -8,14 +8,14 @@
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-dashboard"></i> Order</a></li>
 	<li><a href="{{route('category.index')}}">Index Order</a></li>
-	<li class="active" >Create Order</li>
+	<li class="active" >Edit Order</li>
 </ol>
 @endsection
 
 @section('content')
 <div class="box box-info" id="app">
 	<div class="box-header with-border">
-		<h3 class="box-title">CREATE ORDER</h3>
+		<h3 class="box-title">EDIT ORDER</h3>
 	</div>
 	@if (count($errors) > 0)
 	<div class="alert alert-danger">
@@ -26,22 +26,22 @@
 		</ul>
 	</div>
 	@endif
-	<form class="form-horizontal" action="{{route('order.store')}}" method="post">
+	<form class="form-horizontal" action="{{route('order.update', $orders->id)}}" method="post">
 		@csrf
+		@method('PUT')
 		<div class="box-body">
 			<div class="form-group">
 				<label for="table_number" class="col-sm-2 control-label">Table Number</label>
 				<div class="col-sm-10">
-					<input type="text" name="table_number" class="form-control" id="table_number" placeholder="Table Number/Nomor Meja" value="{{ old('table_number') }}" required>
+					<input type="text" name="table_number" class="form-control" id="table_number" placeholder="Table Number/Nomor Meja" value="{{$orders->table_number}}" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Payment</label>
 				<div class="col-sm-10">
 					<select class="form-control select2" name="payment_id" required>
-						<option class="col-sm-10" value="">~~Pilih Payment~~</option>
 						@foreach($payments as $payment)
-						<option class="col-sm-10" value="{{$payment->id}}">{{$payment->name}}</option>
+						<option class="col-sm-10" value="{{$payment->id}}" {{$orders->payment_id == $payment->id ? 'selected' : ''}}>{{$payment->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -150,6 +150,18 @@
 					.reduce( (prev, next) => prev + next );
 				}
 			},
+			created(){
+				var orders = [];
+
+				@foreach($orders->orderDetail as $index => $detail)
+				orders [{{$index}}] = {
+					product_id: {{$detail->product_id}},
+					quantity: {{$detail->quantity}},
+					subtotal: {{$detail->subtotal}},
+				};
+				@endforeach
+				this.orders = orders;
+			}
 	});
 </script>
 @endsection

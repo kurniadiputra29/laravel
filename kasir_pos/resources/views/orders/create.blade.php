@@ -59,7 +59,7 @@
 				addDetail(){
 					var orders = {product_id:0, quantity:1, subtotal:0};
 					this.orders.push(orders)// titik seperti tanda panah pada laravel
-				},c
+				},
 				delDetail(index){
 					if (index > 0 ) {
 						this.orders.splice(index, 1);	

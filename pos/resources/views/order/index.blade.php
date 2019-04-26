@@ -45,6 +45,7 @@
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{$order->id}}">Detail</button>
 									@csrf
 									@method('DELETE')
+									<a href="{{route('order.edit', $order->id)}}" class="btn btn-primary">Edit</a>
 									<button type="submit" class="btn btn-danger" onclick='javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")'>Hapus</button>
 								</form>
 								<div class="modal fade" id="{{$order->id}}">
