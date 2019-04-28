@@ -69,6 +69,8 @@ Route::prefix('admin')->group(function (){
 
 Route::prefix('admin')->group(function (){
 	Route::get('laporan', 'LaporanController@index')->name('laporan.index');
+	Route::post('laporan/filter', 'LaporanController@filter')->name('laporan.filter');
+	Route::post('laporan/download', 'LaporanController@download')->name('laporan.download');
 });
 
 

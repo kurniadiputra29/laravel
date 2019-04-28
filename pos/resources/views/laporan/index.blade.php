@@ -26,7 +26,7 @@
 										<h4 class="modal-title">Detail</h4>
 									</div>
 									<div class="modal-body">
-										<form class="form-horizontal" action="{{route('order.store')}}" method="post">
+										<form class="form-horizontal" action="{{route('laporan.download')}}" method="post">
 											<div class="box">
 												<div class="box-header with-border">
 													<h3 class="box-title">INDEX ORDER</h3>
@@ -57,24 +57,41 @@
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-sm-3 control-label">Kasir</label>
+															<label class="col-sm-3 control-label">Kasir</label>
+															<div class="col-sm-7">
+																<select class="select2 form-control" name="kasir" required>
+																	@foreach($users as $user)
+																	<option value="{{$user->id}}">{{$user->name}}</option>
+																	@endforeach
+																</select>
+																{{-- <input class="form-control" name="letter_entry" id="reservation" required> --}}
+															</div>
+														</div>
+													<div class="form-group">
+														<label class="col-sm-3 control-label">Type</label>
 														<div class="col-sm-7">
-															<select class="select2 form-control" name="month" required>
-																@foreach($orders as $order)
-																<option value="{{$i}}" {{($i==date('n')) ? 'selected': ''}}>{{$order->user->name}}</option>
-																@endforeach
-															</select>
-															{{-- <input class="form-control" name="letter_entry" id="reservation" required> --}}
+															<div class="radio">
+																<label>
+																	<input type="radio" name="document_type" id="document_type" value="1" checked="">
+																	PDF
+																</label>
+															</div>
+															<div class="radio">
+																<label>
+																	<input type="radio" name="document_type" id="document_type" value="2">
+																	Excel
+																</label>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cencel</button>
-											<button type="submit" class="btn btn-primary pull-right">Submit</button>
-										</div>
-									</form>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cencel</button>
+												<button type="submit" class="btn btn-primary pull-right">Submit</button>
+											</div>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -90,7 +107,7 @@
 											<h4 class="modal-title">Detail</h4>
 										</div>
 										<div class="modal-body">
-											<form class="form-horizontal" action="{{route('order.store')}}" method="post">
+											<form class="form-horizontal" action="{{route('laporan.filter')}}" method="post">
 												<div class="box">
 													<div class="box-header with-border">
 														<h3 class="box-title">INDEX ORDER</h3>
@@ -122,10 +139,10 @@
 														<div class="form-group">
 															<label class="col-sm-3 control-label">Kasir</label>
 															<div class="col-sm-7">
-																<select class="select2 form-control" name="month" required>
-																	@for($i=1; $i <= 12; $i++)
-																	<option value="{{$i}}" {{($i==date('n')) ? 'selected': ''}}>{{ date('F', strtotime(date('Y').'-'.$i.'-01')) }}</option>
-																	@endfor
+																<select class="select2 form-control" name="kasir" required>
+																	@foreach($users as $user)
+																	<option value="{{$user->id}}">{{$user->name}}</option>
+																	@endforeach
 																</select>
 																{{-- <input class="form-control" name="letter_entry" id="reservation" required> --}}
 															</div>
