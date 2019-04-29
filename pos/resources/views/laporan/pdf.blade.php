@@ -13,7 +13,6 @@
 									<th>Total</th>
 									<th>Order Date</th>
 									<th>Kasir</th>
-									<th>Action</th>
 								</tr>
 								@php
 								$nomor=1;
@@ -26,9 +25,6 @@
 									<td>Rp {{ number_format($order->total, 0, " ", ".") }}</td>
 									<td>{{$order->created_at}}</td>
 									<td>{{$order->user->name}}</td>
-									<td>
-										<a href="{{route('order.index')}}" class="btn btn-primary">Detail</a>
-									</td>
 								</tr>
 								@endforeach
 							</tbody>

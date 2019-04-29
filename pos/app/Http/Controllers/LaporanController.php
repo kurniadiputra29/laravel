@@ -9,6 +9,8 @@ use App\Model\Product;
 use App\Model\User;
 use App\Model\OrderDetail;
 use PDF;
+use Maatwebsite\Excel\Excel;
+
 
 class LaporanController extends Controller
 {
@@ -115,7 +117,26 @@ class LaporanController extends Controller
             // return $pdf->download('customers.pdf');
             return $pdf->stream();
         } else {
-            return $request;
+            $users  = User::all();
+            $tahun = $request->year;
+            $bulan = $request->month;
+            $user  = $request->kasir;
+            // $orders = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(5);
+            // $pdf = Excel::loadView('laporan.pdf', compact('orders', 'users'));
+            // return $pdf->stream();
+
+
+            Excel::create('Export data', function($excel) {
+              $excel->sheet('Sheet', function($sheet) {
+              $data = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->get();
+
+               $sheet->fromArray($data);
+              });
+            })->download('xls');
+            // return Excel::download(new UsersExport, 'users.xlsx');
+            // return $pdf->download('customers.pdf');
+            // $nama_file = 'laporan_sembako_'.date('Y-m-d_H-i-s').'.xlsx';
+            // return Excel::download(new SembakoExport, $nama_file);
         }
         
 

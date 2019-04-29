@@ -141,4 +141,9 @@ class OrderController extends Controller
     	Order::find($id)->delete();
     	return redirect('/admin/order');
     }
-  }
+    public function print($id)
+    {
+        $orders = Order::find($id);
+        return view('order.print', compact('orders'));
+    }
+}

@@ -47,6 +47,7 @@ Route::prefix('admin')->group(function (){
 	Route::get('order/{id}/edit', 'OrderController@edit')->name('order.edit');
 	Route::put('order/{id}', 'OrderController@update')->name('order.update');
 	Route::delete('order/{id}', 'OrderController@destroy')->name('order.destroy');
+	Route::get('order/{id}/print', 'OrderController@print')->name('order.print');
 });
 
 Route::prefix('admin')->group(function (){

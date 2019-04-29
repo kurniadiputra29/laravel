@@ -42,7 +42,7 @@
         </li>
         <li class="@if($get == 'order') {{'active'}} @endif ">
           <a href="{{route('order.index')}}">
-            <i class="fa fa-pencil-square-o"></i> <span>Order</span>
+            <i class="fa fa-cart-plus"></i> <span>Order</span>
           </a>
         </li>
         <li class="@if($get == 'laporan') {{'active'}} @endif ">
