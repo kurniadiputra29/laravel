@@ -20,3 +20,6 @@ Route::get('importExport', 'MaatwebsiteDemoController@importExport');
 Route::get('downloadExcel/{type}', 'MaatwebsiteDemoController@downloadExcel');
 
 Route::post('importExcel', 'MaatwebsiteDemoController@importExcel');
+
+Route::get('/excel', 'UserController@laporanExcel');
+Route::get('/export', 'UserController@export');

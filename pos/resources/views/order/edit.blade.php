@@ -113,12 +113,12 @@
 		el: '#app',
 		data: {
 			orders: [
-			{product_id:0, quantity:1, subtotal:0},
+			{product_id:0, quantity:1, subtotal:0, note:""},
 			]
 		},
 		methods: {
 			addDetail(){
-				var orders = {product_id:0, quantity:1, subtotal:0};
+				var orders = {product_id:0, quantity:1, subtotal:0, note:""};
 				this.orders.push(orders)
 			},
 			delDetail(index){

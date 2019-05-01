@@ -34,7 +34,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-    	$products = Product::all();
+    	$products = Product::where('status', '1')->get(); // untuk mengmunculkan produk yang berstatus ada.
     	$payments = Payment::all();
     	return view('order.create', compact('products', 'payments'));
     }
@@ -90,7 +90,7 @@ class OrderController extends Controller
     public function edit($id)
     {
     	$orders		= Order::find($id);
-    	$products = Product::all();
+    	$products = Product::where('status', '1')->get(); // untuk mengmunculkan produk yang berstatus ada.
     	$payments = Payment::all();
     	return view('order.edit', compact('orders', 'products', 'payments'));
     }

@@ -63,6 +63,7 @@
 																	@foreach($users as $user)
 																	<option value="{{$user->id}}">{{$user->name}}</option>
 																	@endforeach
+																	<option value="all">Semua Kasir</option>
 																</select>
 																{{-- <input class="form-control" name="letter_entry" id="reservation" required> --}}
 															</div>
@@ -143,6 +144,7 @@
 																	@foreach($users as $user)
 																	<option value="{{$user->id}}">{{$user->name}}</option>
 																	@endforeach
+																	<option value="all">Semua Kasir</option>
 																</select>
 																{{-- <input class="form-control" name="letter_entry" id="reservation" required> --}}
 															</div>
@@ -181,7 +183,7 @@
 									<td>{{$nomor++}}</td>
 									<td>{{$order->table_number}}</td>
 									<td>Rp {{ number_format($order->total, 0, " ", ".") }}</td>
-									<td>{{$order->created_at}}</td>
+									<td>{{date('d-M-Y', strtotime($order->created_at))}} {{date('H:i', strtotime($order->created_at))}} WIB</td>
 									<td>{{$order->user->name}}</td>
 									<td>
 										<a href="{{route('order.index')}}" class="btn btn-primary">Detail</a>

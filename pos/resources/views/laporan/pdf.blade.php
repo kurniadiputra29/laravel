@@ -1,35 +1,38 @@
-<div class="row">
-	<div class="col-md-12">
-		<div class="box">
-			<div class="box-header with-border">
-				<h3 class="box-title">INDEX ORDER</h3>
-				<div class="pull-right">
-					<div class="box-body">
-						<table class="table table-bordered">
-							<tbody>
-								<tr>
-									<th>Nomor</th>
-									<th>Table Number</th>
-									<th>Total</th>
-									<th>Order Date</th>
-									<th>Kasir</th>
-								</tr>
-								@php
-								$nomor=1;
-								@endphp
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Download</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container-fluid mt-2">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nomor</th>
+					<th>Table Number</th>
+					<th>Total</th>
+					<th>Order Date</th>
+					<th>Kasir</th>
+				</tr>
+			</thead>
+			<tbody>
+				@php
+				$nomor=1;
+				@endphp
 
-								@foreach($orders as $order)
-								<tr>
-									<td>{{$nomor++}}</td>
-									<td>{{$order->table_number}}</td>
-									<td>Rp {{ number_format($order->total, 0, " ", ".") }}</td>
-									<td>{{$order->created_at}}</td>
-									<td>{{$order->user->name}}</td>
-								</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
+				@foreach($orders as $order)
+				<tr>
+					<td>{{$nomor++}}</td>
+					<td>{{$order->table_number}}</td>
+					<td>Rp {{ number_format($order->total, 0, " ", ".") }}</td>
+					<td>{{$order->created_at}}</td>
+					<td>{{$order->user->name}}</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
+

@@ -30,12 +30,12 @@
 							<th>Action</th>
 						</tr>
 						@php
-						$nomor=1;
+						$no = 1;
 						@endphp
 
 						@foreach($orders as $order)
 						<tr>
-							<td>{{$nomor++}}</td>
+							<td>{{$no++}}</td>
 							<td>{{$order->table_number}}</td>
 							<td>Rp {{ number_format($order->total, 0, " ", ".") }}</td>
 							<td>{{$order->payment->name}}</td>

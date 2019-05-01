@@ -9,15 +9,19 @@ use App\Model\Product;
 use App\Model\User;
 use App\Model\OrderDetail;
 use PDF;
-use Maatwebsite\Excel\Excel;
+use App\Exports\LaporanExport;
+use App\Http\Controllers\Controller;
+use Excel;
+
+
 
 
 class LaporanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +29,9 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        $users  = User::all();
-        $orders = Order::orderBy('created_at', 'desc')->paginate(5);
-        return view('laporan.index', compact('orders', 'users'));
+    	$users  = User::all();
+    	$orders = Order::orderBy('created_at', 'desc')->paginate(5);
+    	return view('laporan.index', compact('orders', 'users'));
     }
 
     /**
@@ -59,7 +63,7 @@ class LaporanController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -98,60 +102,54 @@ class LaporanController extends Controller
 
     public function filter(Request $request)
     {
-        $users  = User::all();
-        $tahun = $request->year;
-        $bulan = $request->month;
-        $user  = $request->kasir;
-        $orders = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(5);
-        return view('laporan.index', compact('orders', 'users'));
+    	if ($request->kasir == "all") {
+    		return redirect('admin/laporan');
+    	} else {
+    		$users  = User::all();
+    		$tahun = $request->year;
+    		$bulan = $request->month;
+    		$user  = $request->kasir;
+    		$orders = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(100);
+    		return view('laporan.index', compact('orders', 'users'));
+    	}
     }
+
     public function download(Request $request)
     {
-        if ($request->document_type == 1) {
-            $users  = User::all();
-            $tahun = $request->year;
-            $bulan = $request->month;
-            $user  = $request->kasir;
-            $orders = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(5);
-            $pdf = PDF::loadView('laporan.pdf', compact('orders', 'users'));
-            // return $pdf->download('customers.pdf');
-            return $pdf->stream();
-        } else {
-            $users  = User::all();
-            $tahun = $request->year;
-            $bulan = $request->month;
-            $user  = $request->kasir;
-            // $orders = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(5);
-            // $pdf = Excel::loadView('laporan.pdf', compact('orders', 'users'));
-            // return $pdf->stream();
-
-
-            Excel::create('Export data', function($excel) {
-              $excel->sheet('Sheet', function($sheet) {
-              $data = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->get();
-
-               $sheet->fromArray($data);
-              });
-            })->download('xls');
-            // return Excel::download(new UsersExport, 'users.xlsx');
-            // return $pdf->download('customers.pdf');
-            // $nama_file = 'laporan_sembako_'.date('Y-m-d_H-i-s').'.xlsx';
-            // return Excel::download(new SembakoExport, $nama_file);
-        }
-        
-
-        // if (!empty($request->bulan)) {
-        //     // $pisah = explode(' - ', $request->letter_entry);
-        //     // $from = Carbon::parse($pisah[0])->format('Y-m-d H:i:s');
-        //     // $to = Carbon::parse($pisah[1])->format('Y-m-d').' 24:60:60';
-        //     // dd($pisah);
-        //     $data['type'] = 1;
-        //     $data['data'] = $this->table
-        //                     ->whereMonth('letter_entry', $request->bulan)
-        //                     ->whereYear('letter_entry', $request->tahun)
-        //                     ->get();
-        //     $pdf = PDF::loadView($this->folder.'.download_all', $data);
-        //     return $pdf->setPaper('a4', 'landscape')->download(time().'.pdf');
-        // }
+    	if ($request->document_type == "1") {
+    		if ($request->kasir == "all") {
+    			$users  = User::all();
+    			$tahun = $request->year;
+    			$bulan = $request->month;
+    			$orders = Order::whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(100);
+    			$pdf = PDF::loadView('laporan.pdf', compact('orders', 'users'));
+                // return $pdf->download('customers.pdf');
+    			return $pdf->stream();
+    		} else {
+    			$users  = User::all();
+    			$tahun = $request->year;
+    			$bulan = $request->month;
+    			$user  = $request->kasir;
+    			$orders = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(100);
+    			$pdf = PDF::loadView('laporan.pdf', compact('orders', 'users'));
+                // return $pdf->download('customers.pdf');
+    			return $pdf->stream();
+    		}
+    	} else {
+    		if ($request->kasir == "all") {
+    			$users  = User::all();
+    			$tahun = $request->year;
+    			$bulan = $request->month;
+    			$orders = Order::whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(100);
+    			return Excel::download(new LaporanExport($tahun, $bulan), 'laporan.xlsx');
+    		} else {
+    			$users  = User::all();
+    			$tahun = $request->year;
+    			$bulan = $request->month;
+    			$user  = $request->kasir;
+    			$orders = Order::where('user_id', "$user")->whereYear('created_at', '=', date("$tahun"))->whereMonth('created_at', '=', date("$bulan"))->paginate(100);
+    			return Excel::download(new LaporanExport($tahun, $bulan, $user), 'laporan.xlsx');
+    		}
+    	}
     }
 }
