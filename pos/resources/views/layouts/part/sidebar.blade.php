@@ -22,7 +22,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="@if($get == 'dashboard') {{'active'}} @endif ">
-          <a href="{{url('/admin/dashboard')}}">
+          <a href="{{route('dashboard.index')}}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
             </span>
@@ -52,7 +52,7 @@
         </li>
         <li class="@if($get == 'payment') {{'active'}} @endif ">
           <a href="{{route('payment.index')}}">
-            <i class="fa fa-money"></i> <span>Paymant</span>
+            <i class="fa fa-money"></i> <span>Payment</span>
           </a>
         </li>
         <li class="@if($get == 'user') {{'active'}} @endif ">

@@ -15,8 +15,8 @@ Route::post('/login', 'LoginController@login')->name('log.login');
 Route::post('/logout', 'LoginController@logout')->name('login.logout');
 
 
-Route::get('admin/dashboard', function (){
-	return view('dashboard.index');
+Route::prefix('admin')->group(function (){
+	Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 });
 
 Route::prefix('admin')->group(function (){

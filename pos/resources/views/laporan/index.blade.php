@@ -89,7 +89,7 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cencel</button>
-												<button type="submit" class="btn btn-primary pull-right">Submit</button>
+												<button type="submit" class="btn btn-primary pull-right">Download</button>
 											</div>
 										</form>
 									</div>
