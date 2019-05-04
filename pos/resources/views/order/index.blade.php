@@ -23,7 +23,8 @@
 					<tbody>
 						<tr>
 							<th>Nomor</th>
-							<th>Table Number/Nomor Meja</th>
+							<th>Table Number</th>
+							<th>Diskon</th>
 							<th>Total</th>
 							<th>Pembayaran</th>
 							<th>Kasir</th>
@@ -37,6 +38,7 @@
 						<tr>
 							<td>{{$no++}}</td>
 							<td>{{$order->table_number}}</td>
+							<td>Rp {{number_format($order->diskon, 0, " ", ".")}}</td>
 							<td>Rp {{ number_format($order->total, 0, " ", ".") }}</td>
 							<td>{{$order->payment->name}}</td>
 							<td>{{$order->user->name}}</td>
@@ -140,11 +142,11 @@
 																	<tbody>
 																		<tr>
 																			<th style="width:50%">Subtotal:</th>
-																			<td>Rp {{ number_format($order->total, 0, " ", ".") }}</td>
+																			<td>Rp {{ number_format($order->total + $order->diskon, 0, " ", ".")}}</td>
 																		</tr>
 																		<tr>
 																			<th>Diskon:</th>
-																			<td>Rp {{ number_format(0) }}</td>
+																			<td>Rp {{ number_format($order->diskon, 0, " ", ".") }}</td>
 																		</tr>
 																		<tr>
 																			<th>PPN:</th>

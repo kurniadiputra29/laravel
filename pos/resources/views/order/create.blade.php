@@ -84,9 +84,21 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="diskon" class="col-sm-2 control-label">Diskon</label>
+				<div class="col-sm-10">
+					<input type="number" name="diskon" class="form-control" id="diskon" v-model="diskons">
+				</div>
+			</div>
+			{{-- <div class="form-group">
+				<label for="diskon" class="col-sm-2 control-label">Diskon</label>
+				<div class="col-sm-10">
+					<input type="number" name="diskon" class="form-control" id="diskon" :value="diskon">
+				</div>
+			</div> --}}
+			<div class="form-group">
 				<label for="total" class="col-sm-2 control-label">Total</label>
 				<div class="col-sm-10">
-					<input type="text" name="total" class="form-control" id="total" :value="total" readonly>
+					<input type="text" name="total" class="form-control" id="total" :value="totals" readonly>
 				</div>
 			</div>
 			<div class="form-group">
@@ -114,12 +126,15 @@
 		data: {
 			orders: [
 			{product_id:0, quantity:1, subtotal:0},
+			],
+			diskons: [
+			{diskons:0, total:0}
 			]
 		},
 		methods: {
 			addDetail(){
-				var orders = {product_id:0, quantity:1, subtotal:0};
-				this.orders.push(orders)
+				var order = {product_id:0, quantity:1, subtotal:0};
+				this.orders.push(order)
 			},
 			delDetail(index){
 				if (index > 0 ) {
@@ -146,8 +161,17 @@
 				},
 				total() {
 					return this.orders
-					.map( order => order.subtotal )
+					.map( order => order.subtotal)
 					.reduce( (prev, next) => prev + next );
+				},
+				totals() {
+					if (this.total == '') {
+						var dis =  0;
+						this.diskons = this.total;
+						return dis;
+					} else
+						var dis = this.total - this.diskons;
+						return dis;
 				}
 			},
 	});

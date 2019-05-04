@@ -24,7 +24,7 @@ class OrderController extends Controller
     {
 
     	$orders = Order::orderBy('created_at', 'desc')->paginate(5);
-    	return view('order.index', compact('orders', 'detail'));
+    	return view('order.index', compact('orders', 'subtotals'));
     }
 
     /**
@@ -51,7 +51,7 @@ class OrderController extends Controller
     		'user_id' => auth()->user()->id,
     	]);
 
-    	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id', 'total');
+    	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id','diskon', 'total');
     	$order              = Order::create($dataOrder);
 
     	$dataDetail 				= $request->only('product_id', 'quantity', 'subtotal', 'note');
@@ -89,10 +89,11 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-    	$orders		= Order::find($id);
+        $orders     = Order::find($id);
+    	$details		= OrderDetail::all();
     	$products = Product::where('status', '1')->get(); // untuk mengmunculkan produk yang berstatus ada.
     	$payments = Payment::all();
-    	return view('order.edit', compact('orders', 'products', 'payments'));
+    	return view('order.edit', compact('orders', 'products', 'payments', 'details'));
     }
 
     /**
@@ -108,7 +109,7 @@ class OrderController extends Controller
     		'user_id' => auth()->user()->id,
     	]);
 
-    	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id', 'total');
+    	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id','diskon' ,'total');
     	$order              = Order::find($id)->update($dataOrder);
 
     	$dataDetail 				= $request->only('product_id', 'quantity', 'subtotal', 'note');

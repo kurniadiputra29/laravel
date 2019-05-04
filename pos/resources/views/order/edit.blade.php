@@ -61,10 +61,16 @@
 					<div class="col-sm-5">
 						<input type="number" name="quantity[]" class="form-control" id="quantity" placeholder="Masukkan quantity pesanan" v-model="order.quantity">
 					</div>
+					
 					<label for="note" class="col-sm-2 control-label">Note</label>
 					<div class="col-sm-10" style="margin-top: 10px;">
-						<textarea name="note[]" class="form-control" rows="3" placeholder="Enter ..." id="note">{{ old('note') }}</textarea>
+						
+						<textarea name="note[]" :value="note" class="form-control" rows="3" placeholder="Enter ..." id="note">
+							
+						</textarea>
+						
 					</div>
+					
 					<label for="subtotal" class="col-sm-2 control-label" >Subtotal</label>
 					<div class="col-sm-4" style="margin-top: 10px;">
 						<input type="number" name="subtotal[]" class="form-control" id="subtotal" :value="subtotal(order.product_id, order.quantity, index)" readonly>
@@ -84,9 +90,15 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="diskon" class="col-sm-2 control-label">Diskon</label>
+				<div class="col-sm-10">
+					<input type="number" name="diskon" class="form-control" id="diskon" v-model="disk">
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="total" class="col-sm-2 control-label">Total</label>
 				<div class="col-sm-10">
-					<input type="text" name="total" class="form-control" id="total" :value="total" readonly>
+					<input type="text" name="total" class="form-control" id="total" :value="totals" readonly>
 				</div>
 			</div>
 			<div class="form-group">
@@ -113,12 +125,18 @@
 		el: '#app',
 		data: {
 			orders: [
-			{product_id:0, quantity:1, subtotal:0, note:""},
+			{product_id:0, quantity:1, subtotal:0 }
+			],
+			diskons: [
+			{diskons:{{$orders->diskon}}, total:{{$orders->total}} }
+			],
+			notes: [
+			{note:""}
 			]
 		},
 		methods: {
 			addDetail(){
-				var orders = {product_id:0, quantity:1, subtotal:0, note:""};
+				var orders = {product_id:0, quantity:1, subtotal:0, note:''};
 				this.orders.push(orders)
 			},
 			delDetail(index){
@@ -148,7 +166,23 @@
 					return this.orders
 					.map( order => order.subtotal )
 					.reduce( (prev, next) => prev + next );
+				},
+				disk() {
+					var dis =  {{$orders->diskon}};
+					return dis;
+				},
+				totals() {
+					if (this.total == '') {
+						return {{$orders->diskon}};
+					} else
+						var dis = this.total - {{$orders->diskon}};
+						return dis;
+				},
+				note(){
+					
 				}
+
+				
 			},
 			created(){
 				var orders = [];
@@ -161,7 +195,10 @@
 				};
 				@endforeach
 				this.orders = orders;
-			}
+			},
+
+				
+			
 	});
 </script>
 @endsection

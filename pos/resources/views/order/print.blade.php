@@ -114,11 +114,11 @@
               <tbody>
                 <tr>
                   <th style="width:50%">Subtotal:</th>
-                  <td>Rp {{ number_format($orders->total, 0, " ", ".") }}</td>
+                  <td>Rp {{ number_format($orders->total + $orders->diskon, 0, " ", ".")}}</td>
                 </tr>
                 <tr>
                   <th>Diskon:</th>
-                  <td>Rp {{ number_format(0) }}</td>
+                  <td>Rp {{ number_format($orders->diskon, 0, "",".") }}</td>
                 </tr>
                 <tr>
                   <th>PPN:</th>
