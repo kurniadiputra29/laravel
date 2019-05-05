@@ -54,13 +54,15 @@ class OrderController extends Controller
     	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id','diskon', 'total');
     	$order              = Order::create($dataOrder);
 
-    	$dataDetail 				= $request->only('product_id', 'quantity', 'subtotal', 'note');
-    	$countDetail				= count($dataDetail['product_id']);
+        
+    	$dataDetail 				= $request->only('product_name','product_price', 'quantity', 'subtotal', 'note');
+    	$countDetail				= count($dataDetail['quantity']);
 
     	for ($i=0; $i < $countDetail; $i++) { 
     		$detail 							= new OrderDetail();
     		$detail->order_id			= $order->id;
-    		$detail->product_id 	= $dataDetail['product_id'][$i];
+            $detail->product_name          = $dataDetail['product_name'][$i];
+    		$detail->product_price	     = $dataDetail['product_price'][$i];
     		$detail->quantity			= $dataDetail['quantity'][$i];
     		$detail->subtotal			= $dataDetail['subtotal'][$i];
     		$detail->note 				= $dataDetail['note'][$i];

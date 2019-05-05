@@ -70,7 +70,8 @@
               <tr>
                 <th>Nomor</th>
                 <th>Order</th>
-                <th>Product</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
                 <th>Quantity</th>
                 <th>Subtotal</th>
                 <th>Note</th>
@@ -84,7 +85,8 @@
               <tr>
                 <td>{{$nomor++}}</td>
                 <td>{{$row->order->id}}</td>
-                <td>{{$row->product->name}}</td>
+                <td>{{$row->product_name}}</td>
+                <td>Rp {{ number_format($row->product_price, 0, "",".")}}</td>
                 <td>{{$row->quantity}}</td>
                 <td>Rp {{ number_format($row->subtotal, 0," ",".")}}</td>
                 <td>{{$row->note}}</td>

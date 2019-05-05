@@ -67,6 +67,8 @@
 					</div>
 					<label for="subtotal" class="col-sm-2 control-label" >Subtotal</label>
 					<div class="col-sm-4" style="margin-top: 10px;">
+						<input type="hidden" name="product_name[]" class="form-control" id="product_name" :value="product_name(order.product_id)" readonly>
+						<input type="hidden" name="product_price[]" class="form-control" id="product_price" :value="price(order.product_id, index)" readonly>
 						<input type="number" name="subtotal[]" class="form-control" id="subtotal" :value="subtotal(order.product_id, order.quantity, index)" readonly>
 					</div>
 					<div class="col-sm-4" style="margin-top: 10px; ">
@@ -141,39 +143,60 @@
 					this.orders.splice(index, 1);
 				}
 			},
+			product_name(product_id){
+				var name =  this.productsname[product_id];
+				return name;
+			},
+			price(product_id, index){
+				var price =  this.products[product_id];
+				return price;
+			},
 			subtotal(product_id, qty, index){
 				var subtotal =  this.products[product_id]*qty;
 				this.orders[index].subtotal = subtotal;
 				return subtotal;
 			},
+			
 		},
 		computed: {
-				products(){
-					var products = [];
+			
+			products(){
+				var products = [];
 
-					products[0]=0
+				products[0]=0
 
-					@foreach($products as $product)
-					products[{{$product->id}}] = {{$product->price}}
-					@endforeach
+				@foreach($products as $product)
+				products[{{$product->id}}] = {{$product->price}}
+				@endforeach
 
-					return products;
-				},
-				total() {
-					return this.orders
-					.map( order => order.subtotal)
-					.reduce( (prev, next) => prev + next );
-				},
-				totals() {
-					if (this.total == '') {
-						var dis =  0;
-						this.diskons = this.total;
-						return dis;
-					} else
-						var dis = this.total - this.diskons;
-						return dis;
-				}
+				return products;
 			},
+			productsname(){
+				var products = [];
+
+				products[0]=""
+
+				@foreach($products as $product)
+				products[{{$product->id}}] = "{{$product->name}}"
+				@endforeach
+
+				return products;
+			},
+			total() {
+				return this.orders
+				.map( order => order.subtotal)
+				.reduce( (prev, next) => prev + next );
+			},
+			totals() {
+				if (this.total == '') {
+					var dis =  0;
+					this.diskons = this.total;
+					return dis;
+				} else
+				var dis = this.total - this.diskons;
+				return dis;
+			},
+		},
 	});
 </script>
 @endsection
