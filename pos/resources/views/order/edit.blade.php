@@ -50,10 +50,10 @@
 				<div class="form-group row"  >
 					<label class="col-sm-2 control-label">Product @{{ index + 1 }}</label>
 					<div class="col-sm-4">
-						<select class="form-control select2" name="product_id[]" v-model="order.product_id" required>
+						<select class="form-control select2" name="product_name[]" v-model="order.product_id" required>
 							<option class="col-sm-10" value="0">~~Pilih Product~~</option>
 							@foreach($products as $product)
-							<option class="col-sm-10" value="{{$product->id}}">{{$product->name}}</option>
+							<option class="col-sm-10" value="{{$product->name}}">{{$product->name}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -64,15 +64,13 @@
 					
 					<label for="note" class="col-sm-2 control-label">Note</label>
 					<div class="col-sm-10" style="margin-top: 10px;">
-						
-						<textarea name="note[]" :value="note" class="form-control" rows="3" placeholder="Enter ..." id="note">
-							
+						<textarea name="note[]" :value="note(order.product_id)" class="form-control" rows="3" placeholder="Enter ..." id="note" :value="note(order.product_id)">
 						</textarea>
-						
 					</div>
 					
 					<label for="subtotal" class="col-sm-2 control-label" >Subtotal</label>
 					<div class="col-sm-4" style="margin-top: 10px;">
+						<input type="hidden" name="product_price[]" class="form-control" id="product_price" :value="price(order.product_id, index)" readonly>
 						<input type="number" name="subtotal[]" class="form-control" id="subtotal" :value="subtotal(order.product_id, order.quantity, index)" readonly>
 					</div>
 					<div class="col-sm-4" style="margin-top: 10px; ">
@@ -130,9 +128,6 @@
 			diskons: [
 			{diskons:{{$orders->diskon}}, total:{{$orders->total}} }
 			],
-			notes: [
-			{note:""}
-			]
 		},
 		methods: {
 			addDetail(){
@@ -143,6 +138,14 @@
 				if (index > 0 ) {
 					this.orders.splice(index, 1);
 				}
+			},
+			price(product_id, index){
+				var price =  this.products[product_id];
+				return price;
+			},
+			note(product_id){
+				var name =  this.productsname[product_id];
+				return name;
 			},
 			subtotal(product_id, qty, index){
 				var subtotal =  this.products[product_id]*qty;
@@ -157,10 +160,21 @@
 					products[0]=0
 
 					@foreach($products as $product)
-					products[{{$product->id}}] = {{$product->price}}
+					products["{{$product->name}}"] = {{$product->price}}
 					@endforeach
 
 					return products;
+				},
+				productsname(){
+					var details = [];
+
+					details[0]=0
+
+					@foreach($details as $detail)
+					details["{{$detail->product_name}}"] = "{{$detail->note}}"
+					@endforeach
+
+					return details;
 				},
 				total() {
 					return this.orders
@@ -178,9 +192,6 @@
 						var dis = this.total - {{$orders->diskon}};
 						return dis;
 				},
-				note(){
-					
-				}
 
 				
 			},
@@ -189,7 +200,7 @@
 
 				@foreach($orders->orderDetail as $index => $detail)
 				orders [{{$index}}] = {
-					product_id: {{$detail->product_id}},
+					product_id: "{{$detail->product_name}}",
 					quantity: {{$detail->quantity}},
 					subtotal: {{$detail->subtotal}},
 				};
