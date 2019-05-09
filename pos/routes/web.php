@@ -74,5 +74,8 @@ Route::prefix('admin')->group(function (){
 	Route::post('laporan/download', 'LaporanController@download')->name('laporan.download');
 });
 
-
+Route::group(['prefix' => 'social-media', 'namespace' => 'Auth'], function(){
+    Route::get('register/{provider}', 'SocialiteController@register');
+    Route::get('registered/{provider}', 'SocialiteController@registered');
+});
 

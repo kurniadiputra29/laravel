@@ -44,4 +44,37 @@ return [
         ],
     ],
 
+
+
+
+    'github' => [
+        'client_id' => env('GITHUB_KEY'),
+        'client_secret' => env('GITHUB_SECRET'),
+        'redirect' => env('GITHUB_CALLBACK_URL'),
+    ],
+
+    'google' => [
+        'client_id' => env('GOOGLE_KEY'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => env('GOOGLE_CALLBACK_URL'),
+    ],
+
+    'facebook' => [
+        'client_id' => '847870148895133',
+        'client_secret' => '8eea2091582f647e4f32931b721e10be',
+        'redirect' => 'http://localhost:8000/social-media/registered/facebook',
+    ],
+
+    'bitbucket' => [
+        'client_id' => env('BITBUCKET_KEY'),
+        'client_secret' => env('BITBUCKET_SECRET'),
+        'redirect' => env('BITBUCKET_CALLBACK_URL'),
+    ],
+
+    'linkedin' => [
+        'client_id' => env('LINKEDIN_KEY'),
+        'client_secret' => env('LINKEDIN_SECRET'),
+        'redirect' => env('LINKEDIN_CALLBACK_URL'),
+    ],
+
 ];

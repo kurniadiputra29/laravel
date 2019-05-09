@@ -154,62 +154,59 @@
 			},
 		},
 		computed: {
-				products(){
-					var products = [];
+			products(){
+				var products = [];
 
-					products[0]=0
+				products[0]=0
 
-					@foreach($products as $product)
-					products["{{$product->name}}"] = {{$product->price}}
-					@endforeach
-
-					return products;
-				},
-				productsname(){
-					var details = [];
-
-					details[0]=0
-
-					@foreach($details as $detail)
-					details["{{$detail->product_name}}"] = "{{$detail->note}}"
-					@endforeach
-
-					return details;
-				},
-				total() {
-					return this.orders
-					.map( order => order.subtotal )
-					.reduce( (prev, next) => prev + next );
-				},
-				disk() {
-					var dis =  {{$orders->diskon}};
-					return dis;
-				},
-				totals() {
-					if (this.total == '') {
-						return {{$orders->diskon}};
-					} else
-						var dis = this.total - {{$orders->diskon}};
-						return dis;
-				},
-
-				
-			},
-			created(){
-				var orders = [];
-
-				@foreach($orders->orderDetail as $index => $detail)
-				orders [{{$index}}] = {
-					product_id: "{{$detail->product_name}}",
-					quantity: {{$detail->quantity}},
-					subtotal: {{$detail->subtotal}},
-				};
+				@foreach($products as $product)
+				products["{{$product->name}}"] = {{$product->price}}
 				@endforeach
-				this.orders = orders;
+
+				return products;
+			},
+			productsname(){
+				var details = [];
+
+				details[0]=0
+
+				@foreach($details as $detail)
+				details["{{$detail->product_name}}"] = "{{$detail->note}}"
+				@endforeach
+
+				return details;
+			},
+			total() {
+				return this.orders
+				.map( order => order.subtotal )
+				.reduce( (prev, next) => prev + next );
+			},
+			disk() {
+				var dis =  {{$orders->diskon}};
+				return dis;
+			},
+			totals() {
+				if (this.total == '') {
+					return {{$orders->diskon}};
+				} else
+				var dis = this.total - {{$orders->diskon}};
+				return dis;
 			},
 
-				
 			
+		},
+		created(){
+			var orders = [];
+
+			@foreach($orders->orderDetail as $index => $detail)
+			orders [{{$index}}] = {
+				product_id: "{{$detail->product_name}}",
+				quantity: {{$detail->quantity}},
+				subtotal: {{$detail->subtotal}},
+			};
+			@endforeach
+			this.orders = orders;
+		},	
 	});
 </script>
 @endsection
