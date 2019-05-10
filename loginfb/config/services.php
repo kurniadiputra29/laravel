@@ -46,9 +46,9 @@ return [
 
 
     'github' => [
-        'client_id' => env('GITHUB_KEY'),
-        'client_secret' => env('GITHUB_SECRET'),
-        'redirect' => env('GITHUB_CALLBACK_URL'),
+        'client_id' => '115f8a166e7f7873a225',
+        'client_secret' => '3e85c5fb707042d9d9a60fa293dd479f6408a82e',
+        'redirect' => 'http://localhost:8000/social-media/registered/github',
     ],
 
     'google' => [
