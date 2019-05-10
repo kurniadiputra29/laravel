@@ -52,9 +52,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => env('GOOGLE_KEY'),
-        'client_secret' => env('GOOGLE_SECRET'),
-        'redirect' => env('GOOGLE_CALLBACK_URL'),
+        'client_id' => '253147592275-s8arbg8gjdijdcg7a4o8nq5pnge6cntu.apps.googleusercontent.com',
+        'client_secret' => 'U1wMkd-Nz_TSmVo3MOa3V-5K',
+        'redirect' => 'http://localhost:8000/social-media/registered/google',
     ],
 
     'facebook' => [
