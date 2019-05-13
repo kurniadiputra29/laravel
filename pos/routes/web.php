@@ -48,6 +48,7 @@ Route::prefix('admin')->group(function (){
 	Route::put('order/{id}', 'OrderController@update')->name('order.update');
 	Route::delete('order/{id}', 'OrderController@destroy')->name('order.destroy');
 	Route::get('order/{id}/print', 'OrderController@print')->name('order.print');
+	Route::post('/sendEmail/{id}', 'MailController@send')->name('order.sendEmail');
 });
 
 Route::prefix('admin')->group(function (){

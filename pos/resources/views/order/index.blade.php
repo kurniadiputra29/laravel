@@ -158,13 +158,24 @@
 																			<th>Total:</th>
 																			<td>Rp {{ number_format($order->total, 0, " ", ".") }}</td>
 																		</tr>
-																	</tbody></table>
+																		<tr>
+																		</tbody>
+																	</table>
 																</div>
+															</div>
+															<div class="col-xs-12">
+																<p class="lead">Email: {{$order->email}}</p>
 															</div>
 														</div>
 														<div class="row no-print">
 															<div class="col-xs-12">
 																<a href="{{route('order.print', $order->id)}}" target="_blank" class="btn btn-primary pull-left"><i class="fa fa-print"></i> Print</a>
+																<form action="{{route('order.sendEmail', $order->id)}}" method="POST">
+																	{{ csrf_field() }}
+																	<input type="hidden" class="form-control text-center" value="{{$order->id}}" name="id">
+																	<input type="hidden" class="form-control text-center" value="{{$order->email}}" name="email">
+																	<button type="submit" class="btn btn-primary pull-left" style="margin-left: 10px;">Send Email</button>
+																</form>
 																<button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
 															</div>
 														</div>

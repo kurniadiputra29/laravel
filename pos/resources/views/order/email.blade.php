@@ -45,15 +45,18 @@
             Email: info@adiputro.com
           </address>
         </div>
-        <div class="col-sm-3 invoice-col" style="text-align: center;">
+        <br>
+        <div class="col-sm-3 invoice-col" >
           Table Number<br>
           <strong>{{$orders->table_number}}</strong>
         </div>
-        <div class="col-xs-2 invoice-col" style="text-align: center;">
+        <br>
+        <div class="col-xs-2 invoice-col" >
           Costomers Service<br>
           <strong>{{$orders->user->name}}</strong>
         </div>
-        <div class="col-xs-3 invoice-col" style="text-align: center;">
+        <br>
+        <div class="col-xs-3 invoice-col" >
           Created at<br>
           <strong>{{date('d-M-Y', strtotime($orders->created_at))}}</strong><br>
           <strong>{{date('H:i', strtotime($orders->created_at))}} WIB</strong>
@@ -92,11 +95,6 @@
                 <td>{{$row->note}}</td>
               </tr>
               @endforeach
-              @if (session('Success'))
-              <div class="alert alert-success">
-                {{ session('Success') }}
-              </div>
-              @endif
             </tbody>
           </table>
         </div>
@@ -130,16 +128,17 @@
                   <th>Total:</th>
                   <td>Rp {{ number_format($orders->total, 0, " ", ".") }}</td>
                 </tr>
-                <tr>
-                  <th>Email:</th>
-                  <td>{{$orders->email}}</td>
-                </tr>
-              </tbody></table>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+      <div class="col-xs-12">
+        <p class="lead">Email: {{$orders->email}}</p>
+        <p> Terimakasih Telah Memapir Di Toko Kami ! </p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 </body>
 </html>

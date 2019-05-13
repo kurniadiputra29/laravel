@@ -14,7 +14,7 @@
 
 @section('content')
 <div class="box box-info" id="app">
-	<div class="box-header with-border">
+	<div class="box-header with-bordser">
 		<h3 class="box-title">CREATE ORDER</h3>
 	</div>
 	@if (count($errors) > 0)
@@ -107,6 +107,12 @@
 				<label class="col-sm-2 control-label">User</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" value="{{ auth()->user()->name }}" disabled>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="email" class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
+					<input type="email" name="email" class="form-control" id="email" placeholder="xxx@gmail.com">
 				</div>
 			</div>
 			<div class="box-footer">

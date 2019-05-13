@@ -5,6 +5,6 @@
  <title>Test Mail</title>
 </head>
 <body>
- <p>This is the mail you get from me.</p>
+ <p>Ini Email saya !!!</p>
 </body>
 </html>

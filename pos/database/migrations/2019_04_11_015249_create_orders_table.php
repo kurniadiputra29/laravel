@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->integer('table_number');
             $table->integer('diskon');
             $table->integer('total')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
 
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');

@@ -13,7 +13,7 @@ class EmailController extends Controller
 	        Mail::send('email', ['nama' => $request->nama, 'pesan' => $request->pesan], function ($message) use ($request)
 	        {
 	            $message->subject($request->judul);
-	            $message->from('donotreply@kiddy.com', 'Kiddy');
+	            $message->from('kurniadiputra29@gmail.com', 'Kurniadi');
 	            $message->to($request->email);
 	        });
 	        return back()->with('alert-success','Berhasil Kirim Email');

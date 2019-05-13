@@ -51,7 +51,7 @@ class OrderController extends Controller
     		'user_id' => auth()->user()->id,
     	]);
 
-    	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id','diskon', 'total');
+    	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id','diskon', 'total', 'email');
     	$order              = Order::create($dataOrder);
 
         
@@ -111,7 +111,7 @@ class OrderController extends Controller
     		'user_id' => auth()->user()->id,
     	]);
 
-    	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id','diskon' ,'total');
+    	$dataOrder          = $request->only('table_number', 'payment_id', 'user_id','diskon' ,'total', 'email');
     	$order              = Order::find($id)->update($dataOrder);
 
     	$dataDetail 				= $request->only('product_name', 'product_price', 'quantity', 'subtotal', 'note');
