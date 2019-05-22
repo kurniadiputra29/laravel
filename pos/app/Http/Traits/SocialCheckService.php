@@ -22,7 +22,7 @@ trait SocialCheckService
                 $user = User::firstOrCreate([
                     'name' => $providerUser->getName(),
                     'email' => $providerUser->getEmail(),
-                    'avatar' => $providerUser->getAvatar(),
+                    'foto' => $providerUser->getAvatar(),
                 ]);
             }
             $account = $user->socialAccount()->create([
@@ -37,7 +37,7 @@ trait SocialCheckService
     {
         $existEmail->update([
             'name' => $providerUser->getName(),
-            'avatar' => $providerUser->getAvatar(),
+            'foto' => $providerUser->getAvatar(),
         ]);
     }
 }

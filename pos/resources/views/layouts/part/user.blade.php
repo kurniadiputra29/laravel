@@ -1,12 +1,20 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{Storage::url(auth()->user()->foto)}}" class="user-image" alt="User Image">
+              @if( auth()->user()->password  == null)
+                <img src="{{auth()->user()->foto}}" class="user-image" alt="User Image">
+                @else
+                <img src="{{Storage::url(auth()->user()->foto)}}" class="user-image" alt="User Image">
+                @endif
               <span class="hidden-xs">{{ auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
+                @if( auth()->user()->password  == null)
+                <img src="{{auth()->user()->foto}}" class="img-circle" alt="User Image">
+                @else
                 <img src="{{Storage::url(auth()->user()->foto)}}" class="img-circle" alt="User Image">
+                @endif
 
                 <p>
                   {{ auth()->user()->name }}

@@ -26,6 +26,7 @@ Route::prefix('admin')->group(function (){
 	Route::get('category/{id}/edit', 'CategoryController@edit')->name('category.edit');
 	Route::put('category/{id}', 'CategoryController@update')->name('category.update');
 	Route::delete('category/{id}', 'CategoryController@destroy')->name('category.destroy');
+	Route::get('category/json_category', 'CategoryController@json_category');
 });
 
 
@@ -38,6 +39,7 @@ Route::prefix('admin')->group(function (){
 	Route::delete('item/{id}', 'ItemController@destroy')->name('item.destroy');
 	Route::get('trash', 'ItemController@trash')->name('item.trash');
 	Route::delete('trash/{id}', 'ItemController@forceDelete')->name('item.forceDelete');
+	Route::get('item/json_item', 'ItemController@json_item');
 });
 
 Route::prefix('admin')->group(function (){
@@ -58,6 +60,8 @@ Route::prefix('admin')->group(function (){
 	Route::get('payment/{id}/edit', 'PaymentController@edit')->name('payment.edit');
 	Route::put('payment/{id}', 'PaymentController@update')->name('payment.update');
 	Route::delete('payment/{id}', 'PaymentController@destroy')->name('payment.destroy');
+	Route::get('payment/json_payment', 'PaymentController@json_payment');
+
 });
 
 Route::prefix('admin')->group(function (){
@@ -67,6 +71,7 @@ Route::prefix('admin')->group(function (){
 	Route::get('user/{id}/edit', 'UserController@edit')->name('user.edit');
 	Route::put('user/{id}', 'UserController@update')->name('user.update');
 	Route::delete('user/{id}', 'UserController@destroy')->name('user.destroy');
+	Route::get('user/json_user', 'UserController@json_user');
 });
 
 Route::prefix('admin')->group(function (){

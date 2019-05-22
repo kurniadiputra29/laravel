@@ -137,12 +137,12 @@
 			],
 			diskons: [
 			{diskons:0, total:0}
-			]
+			],
 		},
 		methods: {
 			addDetail(){
 				var order = {product_id:0, quantity:1, subtotal:0};
-				this.orders.push(order)
+				this.orders.push(order);
 			},
 			delDetail(index){
 				if (index > 0 ) {
