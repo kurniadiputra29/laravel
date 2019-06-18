@@ -20,7 +20,7 @@
     <table class="table table-bordered table-striped" id="table">
       <thead>
         <tr>
-          <th>Id</th>
+          <th>No</th>
           <th>Name</th>
           <th style="text-align: center;">Action</th>
         </tr>

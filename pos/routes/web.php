@@ -85,3 +85,14 @@ Route::group(['prefix' => 'social-media', 'namespace' => 'Auth'], function(){
     Route::get('registered/{provider}', 'SocialiteController@registered');
 });
 
+Route::prefix('admin')->group(function (){
+	Route::get('resetpassword', function () {
+		return view('ubah.email');
+	})->name('resetpassword');
+	Route::post('resetpassword', 'LoginController@resetpass')->name('reset.pass');
+	Route::get('confirmasipassword', function () {
+		return view('ubah.confirmasi');
+	})->name('confirm');
+	Route::post('confirmasipassword', 'LoginController@confirmpass')->name('confirm.pass');
+	Route::put('reset', 'LoginController@update')->name('reset.update');
+});

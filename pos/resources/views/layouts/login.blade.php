@@ -35,7 +35,11 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
       <p class="login-box-msg">Sign in to start your session</p>
-
+      @if (session('Success'))
+      <div class="alert alert-success">
+        {{ session('Success') }}
+      </div>
+      @endif
       <form action="{{route('log.login')}}" method="post">
         @csrf
         <div class="form-group has-feedback">
@@ -47,11 +51,14 @@
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
-          <!-- /.col -->
-          <div class="col-xs-12">
+          <div class="col-xs-5 btn" style="margin-left: 10px;">
+            <a href="{{route('resetpassword')}}">I forgot my password</a>
+          </div>
+          <div class="col-xs-1">            
+          </div>
+          <div class="col-xs-5">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
           </div>
-          <!-- /.col -->
         </div>
         <div class="social-auth-links text-center">
           <p>- OR -</p>
@@ -63,7 +70,6 @@
           Github</a>
         </div>
       </form>
-
     </div>
     <!-- /.login-box-body -->
   </div>

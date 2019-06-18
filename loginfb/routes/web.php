@@ -11,15 +11,19 @@
 |
 */
 
+
+Route::group(['prefix' => 'social-media', 'namespace' => 'Auth'], function(){
+    Route::get('register/{provider}', 'SocialiteController@register');
+    Route::get('registered/{provider}', 'SocialiteController@registered');
+});
+
 Route::get('/', function () {
-    return view('welcome');
+return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'social-media', 'namespace' => 'Auth'], function(){
-    Route::get('register/{provider}', 'SocialiteController@register');
-    Route::get('registered/{provider}', 'SocialiteController@registered');
-});
+Route::get('/changePassword','HomeController@showChangePasswordForm');
+Route::post('/changePassword','HomeController@changePassword')->name('changePassword');

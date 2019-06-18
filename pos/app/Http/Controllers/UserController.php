@@ -133,8 +133,9 @@ class UserController extends Controller
             $data->name = $request->name;
             $data->email = $request->email;
             $data->password = bcrypt($request->password);
-            $data->save(); 
-            return redirect('/admin/user')->with('Success', 'Data anda telah berhasil di edit !');
+            return $data;
+            // $data->save(); 
+            // return redirect('/admin/user')->with('Success', 'Data anda telah berhasil di edit !');
         } else {
             $messages = [
             'required' => ':attribute wajib diisi !!!',

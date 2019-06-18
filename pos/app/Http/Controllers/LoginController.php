@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetMail;
+use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Controller;
+use App\Model\User;
+use Illuminate\Support\Facades\Storage;
 
 class LoginController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('guest')->except('logout', 'form', 'login');
+        $this->middleware('guest')->except('logout', 'form', 'login', 'showEmail', 'resetpass', 'confirmpass');
     }
     public function form()
     {
@@ -30,5 +36,72 @@ class LoginController extends Controller
     {
     	Auth::logout();
         return redirect('/form');
+    }
+    public function showEmail()
+    {
+        return view('layouts.email');
+    }
+
+    public function resetpass(Request $request)
+    {
+        $resetpass = $request->email;
+        
+        // $coba = User::all('email');
+        $users = User::where('email', $resetpass)->get();
+        $users_count = User::where('email', $resetpass)->count();
+        
+        if ($users_count > 0 ) {
+            Mail::to('kurniadiputra29@gmail.com')->send(new ResetMail($resetpass));
+            return redirect('admin/resetpassword')->with('Success', 'Email telah berhasil dikirim, cek email Anda !');
+
+            // return view('ubah.sendmail', compact('users'));
+        } else {
+            return back()->with('Gagal', 'Email Anda Tidak Terdaftar !!');
+        }
+    }
+    public function confirmpass(Request $request)
+    {
+        $id = $request->id;
+        $users = User::find($id);
+        return view('ubah.confirmasi', compact('users'));
+
+        // $resetpass = $request->email;
+        // $data1 = $request->password;
+
+        // $data = User::where('email', $resetpass)->get();
+        // $data->email = $request->email;
+        // $data->password = bcrypt($request->password);
+        // $data->save(); 
+        // return redirect('/form');
+
+
+        // $id = $request->email;
+        // $ida = User::where('email', $id)->get('id');
+        
+        // $data = User::find($ida);
+        // return $data;
+
+
+        // $data->name = $request->name;
+        // $data->email = $request->email;
+        // $data->password = bcrypt($request->password);
+        // $data->save(); 
+        // return redirect('/form')->with('Success', 'Data anda telah berhasil di input !');
+    }
+    public function update(Request $request)
+    {
+            $id = $request->id;
+            $messages = [
+            'required' => ':attribute wajib diisi !!!',
+            'min' => ':attribute harus diisi minimal :min karakter !!!',
+            ];
+            $this->validate($request,[
+                'password' => 'nullable|min:5', 
+            ],$messages);
+
+            $data = User::find($id);
+            $data->password = bcrypt($request->password);
+            $data->save(); 
+            return redirect('/form')->with('Success', 'Password anda telah berhasil di reset !');
     }
 }
