@@ -95,4 +95,8 @@ Route::prefix('admin')->group(function (){
 	})->name('confirm');
 	Route::post('confirmasipassword', 'LoginController@confirmpass')->name('confirm.pass');
 	Route::put('reset', 'LoginController@update')->name('reset.update');
+	Route::get('register', function () {
+		return view('ubah.register');
+	})->name('register');
+	Route::post('register', 'LoginController@register')->name('proses.register');
 });

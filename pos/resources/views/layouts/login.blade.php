@@ -51,12 +51,7 @@
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
-          <div class="col-xs-5 btn" style="margin-left: 10px;">
-            <a href="{{route('resetpassword')}}">I forgot my password</a>
-          </div>
-          <div class="col-xs-1">            
-          </div>
-          <div class="col-xs-5">
+          <div class="col-xs-12">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
           </div>
         </div>
@@ -70,6 +65,8 @@
           Github</a>
         </div>
       </form>
+      <a href="{{route('resetpassword')}}">I forgot my password</a><br>
+    <a href="{{route('register')}}" class="text-center">Register a new membership</a>
     </div>
     <!-- /.login-box-body -->
   </div>

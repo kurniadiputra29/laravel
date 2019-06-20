@@ -15,7 +15,7 @@ class LoginController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('guest')->except('logout', 'form', 'login', 'showEmail', 'resetpass', 'confirmpass');
+        $this->middleware('guest')->except('logout', 'form', 'login', 'showEmail', 'resetpass', 'confirmpass', 'register');
     }
     public function form()
     {
@@ -91,17 +91,33 @@ class LoginController extends Controller
     public function update(Request $request)
     {
             $id = $request->id;
-            $messages = [
-            'required' => ':attribute wajib diisi !!!',
-            'min' => ':attribute harus diisi minimal :min karakter !!!',
-            ];
-            $this->validate($request,[
-                'password' => 'nullable|min:5', 
-            ],$messages);
-
             $data = User::find($id);
             $data->password = bcrypt($request->password);
             $data->save(); 
             return redirect('/form')->with('Success', 'Password anda telah berhasil di reset !');
+    }
+    public function register(Request $request)
+    {
+        $messages = [
+            'required' => ':attribute wajib diisi !!!',
+            'min' => ':attribute harus diisi minimal :min karakter !!!',
+        ];
+        $this->validate($request,[
+            'foto' => 'required',
+            'name' => 'required',
+            'email' => 'unique:users,email|required',
+            'password' => 'required|min:5', 
+        ],$messages);
+        
+        $data           = new User;
+        $data->name     = $request->name;
+        $data->email    = $request->email;
+        $data->password = bcrypt($request->password);
+
+        $nama_file = $request->file('foto');
+        $path = $nama_file->store('public/foto'); // ini akan tersimpan pada storage, app, public, files.
+        $data->foto = $path;
+        $data->save();
+        return redirect('/form')->with('Success', 'Data anda telah berhasil di input !');
     }
 }

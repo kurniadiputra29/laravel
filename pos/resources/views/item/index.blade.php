@@ -47,13 +47,27 @@
       serverSide: true,
       ajax: 'item/json_item',
       columns: [
-      { data: 'id', name: 'id' },
+      // { data: 'id', name: 'id' },
+      { data: 'id', name:'id'},
       { data: 'category_id', name: 'category_id' },
       { data: 'name', name: 'name' },
       { data: 'price',  render: $.fn.dataTable.render.number( '.', '', 0, 'Rp ')
       },
-      { data: 'status', name: 'status' },
-      {data: 'action', name: 'action', orderable: false, searchable: false}
+      // { data: 'status', name: 'status' },
+      {data:  'status', render: function ( data, type, row ) {
+          var text = "";
+          var label = "";
+          if (data == 1){
+           text = "Ada";
+           label = "success";
+          } else 
+          if (data == 0){
+           text = "Tidak Ada";
+           label = "warning";
+          }
+          return "<span class='label label-" + label + "'>"+ text + "</span>";
+      }},
+      {data: 'action', name: 'action', orderable: false, searchable: false},
       ]
     });
   });

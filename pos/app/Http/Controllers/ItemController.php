@@ -25,7 +25,7 @@ class ItemController extends Controller
 
 
         $product = Product::all();
-
+        $nomor = 1;
         return Datatables::of($product)
         ->addColumn('action', function ($products) {
             return '<form action="'. route('item.destroy', $products->id) .'" method="POST" class="text-center">

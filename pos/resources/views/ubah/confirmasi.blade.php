@@ -23,7 +23,15 @@
 
 		<div class="register-box-body">
 			<p class="login-box-msg">Confirmasi Password</p>
-
+			@if (count($errors) > 0)
+			    <div class="alert alert-danger">
+			        <ul>
+			            @foreach ($errors->all() as $error)
+			                <li>{{ $error }}</li>
+			            @endforeach
+			        </ul>
+			    </div>
+			@endif
 			<form action="{{route('reset.update')}}" method="post">
 				@csrf
 				@method('PUT')
@@ -71,8 +79,15 @@
             $("#btnSubmit").click(function () {
                 var password = $("#Password").val();
                 var confirmPassword = $("#ConfirmPassword").val();
+                var karakter = password.length;
                 if (password != confirmPassword) {
-                    alert("Passwords do not match.");
+                    alert("Passwords do not match !!!");
+                    return false;
+                } else if( password == ''){
+                	alert("Passwords harus di isi !!!");
+                    return false;
+                } else if( karakter < 5){
+                	alert("Passwords kurang dari 5 !!!");
                     return false;
                 }
                 return true;
