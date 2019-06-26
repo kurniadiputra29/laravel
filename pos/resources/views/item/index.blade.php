@@ -49,7 +49,7 @@
       columns: [
       // { data: 'id', name: 'id' },
       { data: 'id', name:'id'},
-      { data: 'category_id', name: 'category_id' },
+      { data: 'category', name: 'category' },
       { data: 'name', name: 'name' },
       { data: 'price',  render: $.fn.dataTable.render.number( '.', '', 0, 'Rp ')
       },

@@ -21,12 +21,12 @@ class ItemController extends Controller
      */
 
     public function json_item(){
-        // return Datatables::of(Category::all())->make(true);
-
 
         $product = Product::all();
-        $nomor = 1;
         return Datatables::of($product)
+        ->addColumn('category', function($products){
+            return $products->category->name;
+        })
         ->addColumn('action', function ($products) {
             return '<form action="'. route('item.destroy', $products->id) .'" method="POST" class="text-center">
             <a href="' . route('item.edit', $products->id) . '" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-edit"></i>Edit</a>

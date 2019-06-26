@@ -48,7 +48,16 @@
       { data: 'id', name: 'id' },
       { data: 'name', name: 'name' },
       { data: 'email', name: 'email' },
-      { data: 'foto', name: '<img width="150px" src="{{Storage::url('foto') }}">' },
+      { data: 'foto', name: 'foto', render: function (data, type, full, meta) {
+        var hitung = data.length;
+        if ( hitung == 50 ) {
+          var dat = "/storage/" + data;
+        } else {
+          var dat = data;
+        }
+        return "<img src=\"" +  dat + "\"height=\"100\"/>";
+        }
+      },
       {data: 'action', name: 'action', orderable: false, searchable: false}
       ]
     });

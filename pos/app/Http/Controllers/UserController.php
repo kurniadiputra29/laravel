@@ -41,6 +41,7 @@ class UserController extends Controller
 
     public function index()
     {
+        // dd(Storage::url('public'));
         // $data = User::orderBy('created_at', 'desc')->paginate(5);
         return view('user.index');
     }
@@ -81,7 +82,7 @@ class UserController extends Controller
 
         $nama_file = $request->file('foto');
         $path = $nama_file->store('public/foto'); // ini akan tersimpan pada storage, app, public, files.
-        $data->foto = $path;
+        $data->foto = str_replace("public/","",$path); //ini untuk mengubah nama
         $data->save();
         return redirect('/admin/user')->with('Success', 'Data anda telah berhasil di input !');
     }
@@ -160,7 +161,7 @@ class UserController extends Controller
             $data = User::find($id);
             Storage::delete($data->foto);
 
-            $data->foto = $path;
+            $data->foto = str_replace("public/","",$path); //ini untuk mengubah nama
             $data->save();
             return redirect('/admin/user')->with('Success', 'Data anda telah berhasil di edit !');
         }
