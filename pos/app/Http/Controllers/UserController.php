@@ -82,7 +82,7 @@ class UserController extends Controller
 
         $nama_file = $request->file('foto');
         $path = $nama_file->store('public/foto'); // ini akan tersimpan pada storage, app, public, files.
-        $data->foto = str_replace("public/","",$path); //ini untuk mengubah nama
+        $data->photo = str_replace("public/","",$path); //ini untuk mengubah nama
         $data->save();
         return redirect('/admin/user')->with('Success', 'Data anda telah berhasil di input !');
     }

@@ -49,7 +49,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create')->with('Success', 'Data anda telah berhasil di input !');
+        return view('category.create');
     }
 
     /**
@@ -124,6 +124,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect('/admin/category');
+        return redirect('/admin/category')->with('Success', 'Data anda telah berhasil di hapus !');
     }
 }
