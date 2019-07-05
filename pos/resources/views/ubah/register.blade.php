@@ -64,7 +64,7 @@
       </div>
     </form>
     <br>
-    <a href="/form" class="text-center">I already have a membership</a>
+    <a href="/login" class="text-center">I already have a membership</a>
   </div>
 </div>
 <script src="{{asset('AdminLTE/bower_components/jquery/dist/jquery.min.js')}}"></script>

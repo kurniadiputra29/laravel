@@ -52,7 +52,7 @@
 				<div class="row">
 					<div class="box-footer">
 						<button type="submit" class="btn btn-primary btn-block btn-flat" style="margin-bottom: 5px;" id="btnSubmit">Submit</button>
-						<a href="/form" class="btn btn-default btn-block btn-flat">Cancel</a>
+						<a href="/login" class="btn btn-default btn-block btn-flat">Cancel</a>
 					</div>
 				</div>
 			</form>

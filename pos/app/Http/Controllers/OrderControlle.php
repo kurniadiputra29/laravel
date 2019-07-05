@@ -20,25 +20,6 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function json_order(){
-        // return Datatables::of(Category::all())->make(true);
-
-
-        $order = Order::all();
-        return Datatables::of($order)
-        ->addColumn('action', function ($orders) {
-            return '<form action="'. route('order.destroy', $orders->id) .'" method="POST" class="text-center">
-            <a href="' . route('order.edit', $orders->id) . '" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-edit"></i>Edit</a>
-            <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="_token" value="'. csrf_token() .'">
-            <button type="submit" class="btn btn-xs btn-danger btn-label" onclick="javascript:return confirm(\'Apakah anda yakin ingin menghapus data ini?\')"><i class="fa fa-trash"></i>
-            Hapus</button>
-            </form>
-            ';
-        })
-        ->make(true);
-    }
-
     public function index()
     {
 

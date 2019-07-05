@@ -49,8 +49,12 @@ Route::prefix('admin')->group(function (){
 	Route::get('order/{id}/edit', 'OrderController@edit')->name('order.edit');
 	Route::put('order/{id}', 'OrderController@update')->name('order.update');
 	Route::delete('order/{id}', 'OrderController@destroy')->name('order.destroy');
+	//untuk print
 	Route::get('order/{id}/print', 'OrderController@print')->name('order.print');
+	//untuk sendmail
 	Route::post('/sendEmail/{id}', 'MailController@send')->name('order.sendEmail');
+	//untuk yajra
+	Route::get('order/json_order', 'OrderController@json_order');
 });
 
 Route::prefix('admin')->group(function (){
@@ -99,4 +103,10 @@ Route::prefix('admin')->group(function (){
 		return view('ubah.register');
 	})->name('register');
 	Route::post('register', 'LoginController@register')->name('proses.register');
+});
+
+Route::prefix('admin')->group(function (){
+	Route::get('coba', function () {
+		return view('order.modal');
+	})->name('coba');
 });

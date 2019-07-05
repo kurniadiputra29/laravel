@@ -94,7 +94,7 @@ class LoginController extends Controller
             $data = User::find($id);
             $data->password = bcrypt($request->password);
             $data->save(); 
-            return redirect('/form')->with('Success', 'Password anda telah berhasil di reset !');
+            return redirect('/login')->with('Success', 'Password anda telah berhasil di reset !');
     }
     public function register(Request $request)
     {
@@ -118,6 +118,6 @@ class LoginController extends Controller
         $path = $nama_file->store('public/foto'); // ini akan tersimpan pada storage, app, public, files.
         $data->foto = $path;
         $data->save();
-        return redirect('/form')->with('Success', 'Data anda telah berhasil di input !');
+        return redirect('/login')->with('Success', 'Data anda telah berhasil di input !');
     }
 }
